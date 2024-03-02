@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb';
 import mongoose from 'mongoose';  
 
-
+export const dynamic = 'force-dynamic';
 export async function GET(request: Request) {
   // Connect to MongoDB
   const uri = 'mongodb+srv://htb:ENu83UbGynqpQ9E@cluster0.uyx8ms0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
