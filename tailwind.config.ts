@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss"
+import { withUt } from "uploadthing/tw";
 const svgToDataUri = require("mini-svg-data-uri");
 const colors = require("tailwindcss/colors");
 const {
@@ -105,4 +106,4 @@ const config = {
   ],
 } satisfies Config
 
-export default config
+export default withUt(config)
