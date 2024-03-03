@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,10 +15,9 @@ import { useEffect, useRef } from "react";
 import { SearchResults } from "@/lib/embedding";
 import Comments from "./Comment";
 
-export default function DocumentView(results
-  : {
-    results: SearchResults["results"][number];
-  }) {
+export default function DocumentView(results: {
+  results: SearchResults["results"][number];
+}) {
   const embedRef = useRef<HTMLEmbedElement>(null);
 
   useEffect(() => {
@@ -59,11 +58,7 @@ export default function DocumentView(results
   }, []);
 
   if (results.results === undefined) {
-    return (
-      <div>
-        err
-      </div>
-    )
+    return <div>err</div>;
   }
 
   return (
@@ -79,7 +74,9 @@ export default function DocumentView(results
         </div>
         <div className="col-span-3 sm:col-span-1 max-h-[100%] flex flex-col justify-between bg-white p-3 rounded-lg">
           <div className="flex flex-col gap-4 overflow-y-auto">
-            <h1 className="text-3xl font-bold">{results.results ? results.results.name : "Title"}</h1>
+            <h1 className="text-3xl font-bold">
+              {results.results ? results.results.name : "Title"}
+            </h1>
             <Tags text={results.results.tags} />
 
             <Comments comments={results.results.comments} />

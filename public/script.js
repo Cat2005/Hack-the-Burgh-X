@@ -124,7 +124,10 @@ async function main() {
 
     labels
       .attr("x", (d) => d.x)
-      .attr("y", (d) => d.y + 2 * Math.max(Math.min(nodes.length * 10, 500), 5))
+      .attr(
+        "y",
+        (d) => d.y + 2 * Math.max(Math.min(100 / nodes.length, 500), 5)
+      )
       .text((d) => d.id);
 
     node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);

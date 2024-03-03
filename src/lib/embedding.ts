@@ -28,7 +28,7 @@ export async function createEmbeddingVector(note: Note) {
   return vector;
 }
 
-export async function search(query: string, n: number = 5) {
+export async function search(query: string, n: number = 4) {
   const results = await db.document.findMany();
   const embeddings = results.map((r) => ({
     documentId: r.id,
