@@ -15,7 +15,7 @@ import CommentInput from "./CommentInput";
 
 export default function TagView({ tagName }: { tagName: string }) {
   return (
-    <Dialog aria-label="Edit Profile" asChild>
+    <Dialog aria-label="Edit Profile">
       <DialogTrigger asChild>
         <Button variant="outline">Edit Profile</Button>
       </DialogTrigger>

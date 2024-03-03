@@ -10,6 +10,7 @@ export async function GET(request: Request) {
     return new Response(JSON.stringify(results), { status: 200 });
   } catch (e) {
     // Close the connection
+    // @ts-ignore
     return new Response(e.message, { status: 500 });
   }
 }

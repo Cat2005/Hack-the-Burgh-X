@@ -35,6 +35,7 @@ export default function Home() {
       <Tag text={['N-Gram', 'Some tag', 'tag3']} />
 
       <DocumentView
+        // @ts-ignore
         documentName="docName.pdf"
         documentTags={['N-Gram', 'Some tag', 'tag3']}
         documentUrl="https://docs.rs-online.com/d636/A700000008880675.pdf"
@@ -43,7 +44,7 @@ export default function Home() {
           { title: 'Comment 2', content: 'This is another comment' },
         ]}
       />
-      <TagView tagName='Sorting'/>
+      <TagView tagName='Sorting' />
     </>
   )
 }

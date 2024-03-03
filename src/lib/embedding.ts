@@ -28,7 +28,7 @@ export async function createEmbeddingVector(note: Note) {
   return vector;
 }
 
-export async function search(query: string, n: number = 3) {
+export async function search(query: string, n: number = 5) {
   const results = await db.document.findMany();
   const embeddings = results.map((r) => ({
     documentId: r.id,
@@ -44,7 +44,7 @@ export async function search(query: string, n: number = 3) {
     similarity: vectorSimilarity(queryEmbedding, e.vector),
   }));
   const topN = similarities
-    .sort((a, b) => a.similarity - b.similarity)
+    .sort((a, b) => b.similarity - a.similarity)
     .slice(0, Math.min(similarities.length, n))
 
   const comments = await db.comment.findMany({

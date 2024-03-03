@@ -85,7 +85,7 @@ export function DropZone({ children }: Props) {
       {isDragAccept}
       {isDragReject}
 
-      {openModal && (
+      {openModal && acceptedFiles[0] && (
         <Dialog open={openModal} onOpenChange={setOpenModal}>
           <DialogContent>
             <DialogHeader>

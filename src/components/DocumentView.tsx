@@ -26,6 +26,7 @@ export default function DocumentView(results
     fetch(results.results.url)
       .then((res) => res.blob())
       .then((blob) => {
+        // @ts-ignore
         const blobToBase64 = (blob) => {
           const reader = new FileReader();
           reader.readAsDataURL(blob);
@@ -57,6 +58,14 @@ export default function DocumentView(results
       });
   }, []);
 
+  if (results.results === undefined) {
+    return (
+      <div>
+        err
+      </div>
+    )
+  }
+
   return (
     <Dialog aria-label="Edit Profile" defaultOpen>
       <DialogContent className="sm:max-w-[80vw] max-[50vw]: grid gap-4 grid-cols-3 h-[90vh] bg-gray-100">
@@ -70,7 +79,7 @@ export default function DocumentView(results
         </div>
         <div className="col-span-3 sm:col-span-1 max-h-[100%] flex flex-col justify-between bg-white p-3 rounded-lg">
           <div className="flex flex-col gap-4 overflow-y-auto">
-            <h1 className="text-3xl font-bold">{results.results.name}</h1>
+            <h1 className="text-3xl font-bold">{results.results ? results.results.name : "Title"}</h1>
             <Tags text={results.results.tags} />
 
             <Comments comments={results.results.comments} />

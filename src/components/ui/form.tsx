@@ -1,6 +1,7 @@
+// @ts-nocheck
 import * as React from "react"
-import * as LabelPrimitive from "@radix-ui/react-label"
-import { Slot } from "@radix-ui/react-slot"
+import * as reactLabel from "@radix-ui/react-label"
+import * as reactSlot from "@radix-ui/react-slot"
 import {
   Controller,
   ControllerProps,
@@ -85,8 +86,8 @@ const FormItem = React.forwardRef<
 FormItem.displayName = "FormItem"
 
 const FormLabel = React.forwardRef<
-  React.ElementRef<typeof LabelPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
+  React.ElementRef<typeof reactLabel.Root>,
+  React.ComponentPropsWithoutRef<typeof reactLabel.Root>
 >(({ className, ...props }, ref) => {
   const { error, formItemId } = useFormField()
 
@@ -102,13 +103,13 @@ const FormLabel = React.forwardRef<
 FormLabel.displayName = "FormLabel"
 
 const FormControl = React.forwardRef<
-  React.ElementRef<typeof Slot>,
-  React.ComponentPropsWithoutRef<typeof Slot>
+  React.ElementRef<typeof reactSlot.Slot>,
+  React.ComponentPropsWithoutRef<typeof reactSlot.Slot>
 >(({ ...props }, ref) => {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
 
   return (
-    <Slot
+    <reactSlot.Slot
       ref={ref}
       id={formItemId}
       aria-describedby={
