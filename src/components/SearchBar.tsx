@@ -21,6 +21,8 @@ export default function SearchBar() {
     setResults(res);
   };
 
+  console.log(results)
+
   return (
     <form
       onSubmit={handleSubmit}

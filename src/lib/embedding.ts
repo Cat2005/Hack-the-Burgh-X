@@ -1,4 +1,4 @@
-'use server'
+"use server";
 import OpenAI from "openai";
 import * as mathjs from "mathjs";
 import { db } from "./db";
@@ -27,19 +27,18 @@ export async function createEmbeddingVector(note: Note) {
   return vector;
 }
 
-export async function search(query: string) {
-  const results = await db.document.findMany()
-  const embeddings = results.map((r) => ({ documentId: r.id, vector: r.vector }));
+export async function search(query: string, n: number = 3) {
+  const results = await db.document.findMany();
+  const embeddings = results.map((r) => ({
+    documentId: r.id,
+    vector: r.vector,
+  }));
   const queryEmbedding = await createEmbeddingVector({ content: query });
-  const similarities = embeddings.map((e) =>
-    vectorSimilarity(queryEmbedding, e.vector)
-  );
-  const maxSimilarityIndex = similarities.indexOf(Math.max(...similarities));
-  console.log("maxSimilarityIndex", maxSimilarityIndex);
-  console.log("documentId", embeddings[maxSimilarityIndex].documentId);
-  return {
-    documentId: embeddings[maxSimilarityIndex].documentId,
-    similarity: similarities[maxSimilarityIndex],
-  };
+  const similarities = embeddings.map((e) => ({
+    documentId: e.documentId,
+    similarity: vectorSimilarity(queryEmbedding, e.vector),
+  }));
+  return similarities
+    .sort((a, b) => b.similarity - a.similarity)
+    .slice(0, Math.min(similarities.length, n));
 }
-
