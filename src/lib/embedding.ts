@@ -1,5 +1,7 @@
+'use server'
 import OpenAI from "openai";
 import * as mathjs from "mathjs";
+import { db } from "./db";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -10,7 +12,7 @@ type Note = {
 };
 
 type Embedding = {
-  note: Note;
+  documentId: string;
   vector: number[];
 };
 
@@ -19,7 +21,7 @@ function vectorSimilarity(v1: number[], v2: number[]) {
   return mathjs.dot(v1, v2) / (mathjs.norm(v1) * mathjs.norm(v2));
 }
 
-async function createEmbeddingVector(note: Note) {
+export async function createEmbeddingVector(note: Note) {
   const res = await openai.embeddings.create({
     model: "text-embedding-ada-002",
     input: note.content,
@@ -28,19 +30,19 @@ async function createEmbeddingVector(note: Note) {
   return vector;
 }
 
-async function search(query: string, embeddings: Embedding[]) {
+export async function search(query: string) {
+  const results = await db.document.findMany()
+  const embeddings = results.map((r) => ({ documentId: r.id, vector: r.vector }));
   const queryEmbedding = await createEmbeddingVector({ content: query });
   const similarities = embeddings.map((e) =>
     vectorSimilarity(queryEmbedding, e.vector)
   );
   const maxSimilarityIndex = similarities.indexOf(Math.max(...similarities));
+  console.log("maxSimilarityIndex", maxSimilarityIndex);
+  console.log("documentId", embeddings[maxSimilarityIndex].documentId);
   return {
-    note: embeddings[maxSimilarityIndex].note,
+    documentId: embeddings[maxSimilarityIndex].documentId,
     similarity: similarities[maxSimilarityIndex],
   };
 }
 
-async function addNoteToEmbeddings(note: Note, embeddings: Embedding[]) {
-  const vector = await createEmbeddingVector(note);
-  embeddings.push({ note, vector });
-}
