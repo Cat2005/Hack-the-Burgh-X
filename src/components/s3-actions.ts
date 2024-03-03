@@ -41,12 +41,17 @@ export async function uploadToS3(formData: FormData, tags: string[]) {
     const pdf = await s3.send(new PutObjectCommand({
       Bucket: bucket,
       Key: `${document.id}-file.pdf`,
+      ContentType: 'application/pdf',
+      ACL: 'public-read',
       Body: Buffer.from(await file.arrayBuffer())
     }))
+
 
     const image = await s3.send(new PutObjectCommand({
       Bucket: bucket,
       Key: `${document.id}-thumbnail.png`,
+      ContentType: 'image/png',
+      ACL: 'public-read',
       // @ts-ignore
       Body: Buffer.from(data[0], 'base64'),
     }))

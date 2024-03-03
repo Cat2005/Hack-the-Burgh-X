@@ -14,18 +14,24 @@ export const Thumbnails = (props: {}) => {
       {results?.map((result, index) => {
         return (
           // paper aspect ratio
-          <AspectRatio ratio={9 / 16} key={result.documentId} className='w-60 h-60'>
+          <AspectRatio ratio={9 / 16} key={result.documentId} className='w-60 h-60'
+            onClick={() => {
+              console.log('clicked')
+              console.log(index)
+              console.log(results![index])
+              setSelectedDoc(index)
+            }}
+          >
             <img
               src={result.thumbnail}
               alt={"TES"}
               className="rounded-md object-cover"
-              onClick={() => setSelectedDoc(index)}
             />
           </AspectRatio>
         )
       }
       )}
-      {selectedDoc && (
+      {selectedDoc !== null && (
         <DocumentView documentName={results![selectedDoc]!.name} documentTags={results![selectedDoc]!.tags} documentUrl={results![selectedDoc]!.url} comments={[]} />
       )}
     </div>
