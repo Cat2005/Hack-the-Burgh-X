@@ -47,6 +47,14 @@ export async function search(query: string, n: number = 3) {
     .sort((a, b) => a.similarity - b.similarity)
     .slice(0, Math.min(similarities.length, n))
 
+  const comments = await db.comment.findMany({
+    where: {
+      documentId: {
+        in: topN.map((r) => r.documentId),
+      },
+    },
+  });
+
 
   const resultsWithThumbnails = await Promise.all(
     topN.map(async (r) => {
@@ -55,10 +63,14 @@ export async function search(query: string, n: number = 3) {
         ...r,
         thumbnail,
         url: await getPdf(r.documentId),
+        comments: comments.filter((c) => c.documentId === r.documentId),
       };
     })
   );
-  return resultsWithThumbnails;
+  return {
+    results: resultsWithThumbnails,
+    query,
+  };
 
 
 

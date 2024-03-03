@@ -1,3 +1,4 @@
+'use client'
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -8,27 +9,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import Comment from "./Comment";
-import Comments from "./Comment";
 import Tags from "./Tags";
 import CommentInput from "./CommentInput";
 import { useEffect, useRef } from "react";
+import { SearchResults } from "@/lib/embedding";
+import Comments from "./Comment";
 
-export default function DocumentView({
-  documentName,
-  documentTags,
-  documentUrl,
-  comments,
-}: {
-  documentName: string;
-  documentTags: string[];
-  documentUrl: string;
-  comments: { title: string; content: string }[];
-}) {
+export default function DocumentView(results
+  : {
+    results: SearchResults["results"][number];
+  }) {
   const embedRef = useRef<HTMLEmbedElement>(null);
 
   useEffect(() => {
-    fetch(documentUrl)
+    console.log(results.results.url);
+    fetch(results.results.url)
       .then((res) => res.blob())
       .then((blob) => {
         const blobToBase64 = (blob) => {
@@ -53,7 +48,7 @@ export default function DocumentView({
         }
         const embed = embedRef.current;
         // replace octet-stream with pdf
-        const url = documentUrl.replace(
+        const url = results.results.url.replace(
           "application/octet-stream",
           "application/pdf"
         );
@@ -61,6 +56,7 @@ export default function DocumentView({
         embed.setAttribute("src", url);
       });
   }, []);
+
   return (
     <Dialog aria-label="Edit Profile" defaultOpen>
       <DialogContent className="sm:max-w-[80vw] max-[50vw]: grid gap-4 grid-cols-3 h-[90vh] bg-gray-100">
@@ -74,12 +70,12 @@ export default function DocumentView({
         </div>
         <div className="col-span-3 sm:col-span-1 max-h-[100%] flex flex-col justify-between bg-white p-3 rounded-lg">
           <div className="flex flex-col gap-4 overflow-y-auto">
-            <h1 className="text-3xl font-bold">{documentName}</h1>
-            <Tags text={documentTags} />
+            <h1 className="text-3xl font-bold">{results.results.name}</h1>
+            <Tags text={results.results.tags} />
 
-            <Comments comments={comments} />
+            <Comments comments={results.results.comments} />
           </div>
-          <CommentInput />
+          <CommentInput documentId={results.results.documentId} />
         </div>
       </DialogContent>
     </Dialog>

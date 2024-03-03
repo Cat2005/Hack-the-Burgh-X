@@ -18,6 +18,10 @@ const useSearch = () => {
   return context;
 };
 
+
+// poll for search results
+
+
 function SearchProvider({ children }: { children: React.ReactNode }) {
   const [results, setResults] = useState<SearchResults | null>(null);
   return (

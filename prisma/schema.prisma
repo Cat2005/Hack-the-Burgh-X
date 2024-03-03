@@ -24,7 +24,7 @@ model Document {
 
 model Comment {
   id       String   @id @default(uuid()) @map("_id") 
-  text     String
+  content String
   document Document @relation(fields: [documentId], references: [id])
   documentId String
   createdAt DateTime @default(now())

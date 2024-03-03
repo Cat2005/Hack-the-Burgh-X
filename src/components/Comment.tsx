@@ -1,3 +1,5 @@
+import { Comment } from "@prisma/client";
+
 function Comment({ title, content }: { title: string; content: string }) {
   return (
     <div className="px-3 border-black-10 rounded-lg p-2 bg-[#fff] border">
@@ -10,7 +12,7 @@ function Comment({ title, content }: { title: string; content: string }) {
 export default function Comments({
   comments,
 }: {
-  comments: { title: string; content: string }[]
+  comments: Comment[]
 }) {
   return (
     <div className="grid gap-4">
