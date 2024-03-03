@@ -1675,7 +1675,6 @@ const node = svg
   .join("circle")
   .attr("r", 10)
   .on("mouseover", (event, d) => {
-    console.log("hover", d);
   });
 
 node.append("title").text((d) => "hello");

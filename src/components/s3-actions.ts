@@ -22,7 +22,6 @@ export async function uploadToS3(formData: FormData) {
     page_numbers: [1],
     base64: true
   })
-  console.log(data)
 
   //  const pdfparser = new PDFParser()
   const pdfParser = new (PDFParser as any)(null, 1);

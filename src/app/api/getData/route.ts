@@ -8,7 +8,6 @@ export async function GET(request: Request) {
   try {
     // Insert a document
     const results = await db.document.findMany()
-    console.log(results)
     return new Response(JSON.stringify(results), { status: 200 });
   } catch (e) {
     // Close the connection
