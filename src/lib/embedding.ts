@@ -11,10 +11,7 @@ type Note = {
   content: string;
 };
 
-type Embedding = {
-  documentId: string;
-  vector: number[];
-};
+export type SearchResults = Awaited<ReturnType<typeof search>>;
 
 function vectorSimilarity(v1: number[], v2: number[]) {
   // @ts-ignore

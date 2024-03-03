@@ -1,12 +1,16 @@
-export default function HorizontalHeader({
-  documentCount,
-}: {
-  documentCount: number
-}) {
+import { db } from "@/lib/db";
+
+export default async function HorizontalHeader() {
+  const res = await db.document.findMany({
+    select: {
+      id: true,
+    },
+  });
+  const count = res.length;
   return (
     <div className="flex flex-row justify-between items-center align-middle h-10 bg-[#fff] border rounded-xl py-7 px-2 shadow-sm">
-      <h1 className="text-2xl px-2">NLP ⋅ University of Edinburgh </h1>
-      <h1 className="text-l px-2">{documentCount} documents</h1>
+      <h1 className="text-2xl px-2 text-neutral-600">NLP ⋅ University of Edinburgh </h1>
+      <h1 className="px-2 text-neutral-400">{count} documents</h1>
     </div>
-  )
+  );
 }
