@@ -1,6 +1,9 @@
+import Comment from '@/components/Comment'
+import DocumentView from '@/components/DocumentView'
 import HorizontalHeader from '@/components/HorizontalHeader'
 import SearchResult from '@/components/SearchResult'
 import Tag from '@/components/Tags'
+import { Comme } from 'next/font/google'
 import React from 'react'
 
 export default function Home() {
@@ -29,6 +32,16 @@ export default function Home() {
         ]}
       />
       <Tag text={['N-Gram', 'Some tag', 'tag3']} />
+
+      <DocumentView
+        documentName="docName.pdf"
+        documentTags={['N-Gram', 'Some tag', 'tag3']}
+        documentUrl="https://docs.rs-online.com/d636/A700000008880675.pdf"
+        comments={[
+          { title: 'Comment 1', content: 'This is a comment' },
+          { title: 'Comment 2', content: 'This is another comment' },
+        ]}
+      />
     </>
   )
 }
