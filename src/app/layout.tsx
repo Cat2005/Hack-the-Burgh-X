@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Background from '@/components/Background'
 import HorizontalHeader from '@/components/HorizontalHeader'
-import { DropZone } from '@/components/upload';
+import { DropZone } from '@/components/upload'
 
 import { Toaster } from '@/components/ui/sonner'
 
@@ -24,16 +24,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <Background>
           <HorizontalHeader documentCount={32} />
-<<<<<<< HEAD
-          <DropZone>
-            {children}
-          </DropZone>
+          <DropZone>{children}</DropZone>
         </Background>
-=======
-          {children}
-          <Toaster position="bottom-left" richColors />
-        </Main>
->>>>>>> e3e3698 (add Document view page)
+        {children}
+        <Toaster position="bottom-left" richColors />
       </body>
     </html>
   )
