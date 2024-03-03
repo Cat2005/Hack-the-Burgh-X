@@ -53,8 +53,21 @@ async function main() {
       "link",
       d3.forceLink(links).id((d) => d.id)
     )
-    .force("charge", d3.forceManyBody())
+    .force(
+      "link",
+      d3
+        .forceLink(links)
+        .id((d) => d.id)
+        .distance(Math.max(Math.min(1500 / nodes.length, 500), 50))
+    )
     .force("center", d3.forceCenter(width / 2, height / 2))
+    .force("charge", d3.forceManyBody().strength(-100))
+    .force(
+      "collision",
+      d3.forceCollide().radius(function (d) {
+        return d.radius;
+      })
+    )
     .on("tick", ticked);
 
   // Create the SVG container.
@@ -82,10 +95,19 @@ async function main() {
     .selectAll()
     .data(nodes)
     .join("circle")
-    .attr("r", 7)
+    .attr("r", (d) => {
+      return Math.max(Math.min(100 / nodes.length, 500), 5);
+    })
     .on("mouseover", (event, d) => {});
 
-  node.append("title").text((d) => "hello");
+  const labels = svg
+    .selectAll("text")
+    .data(nodes)
+    .enter()
+    .append("text")
+    .text((d) => "hello")
+    .style("text-anchor", "middle")
+    .style("font-size", "16px");
 
   // Add a drag behavior.
   node.call(
@@ -99,6 +121,11 @@ async function main() {
       .attr("y1", (d) => d.source.y)
       .attr("x2", (d) => d.target.x)
       .attr("y2", (d) => d.target.y);
+
+    labels
+      .attr("x", (d) => d.x)
+      .attr("y", (d) => d.y + 2 * Math.max(Math.min(nodes.length * 10, 500), 5))
+      .text((d) => d.id);
 
     node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
   }

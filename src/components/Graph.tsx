@@ -8,7 +8,10 @@ import Script from "next/script";
 export default function Graph() {
   return (
     <>
-      <div className={cn("transition-all w-full h-full")} id="container"></div>
+      <div
+        className="absolute w-full h-full bottom-0 left-0"
+        id="container"
+      ></div>
       <Script src="https://cdn.jsdelivr.net/npm/d3@7"></Script>
       <Script src="/script.js"></Script>
     </>

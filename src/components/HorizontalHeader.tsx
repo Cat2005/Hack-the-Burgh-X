@@ -8,8 +8,10 @@ export default async function HorizontalHeader() {
   });
   const count = res.length;
   return (
-    <div className="flex flex-row justify-between items-center align-middle h-10 bg-[#fff] border rounded-xl py-7 px-2 shadow-sm">
-      <h1 className="text-2xl px-2 text-neutral-600">NLP ⋅ University of Edinburgh </h1>
+    <div className="flex flex-row justify-between items-center align-middle h-7 bg-[#fff] border rounded-xl py-5 px-2 shadow-sm">
+      <h1 className="text-lg px-2 text-neutral-600">
+        NLP ⋅ University of Edinburgh{" "}
+      </h1>
       <h1 className="px-2 text-neutral-400">{count} documents</h1>
     </div>
   );
