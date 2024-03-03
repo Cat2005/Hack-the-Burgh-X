@@ -27,6 +27,7 @@
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.51.0",
     "sonner": "^1.4.3",
+    "react-force-graph-2d": "^1.25.4",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4"
