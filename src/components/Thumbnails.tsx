@@ -16,9 +16,6 @@ export const Thumbnails = (props: {}) => {
           // paper aspect ratio
           <AspectRatio ratio={9 / 16} key={result.documentId} className='w-60 h-60'
             onClick={() => {
-              console.log('clicked')
-              console.log(index)
-              console.log(results![index])
               setSelectedDoc(index)
             }}
           >

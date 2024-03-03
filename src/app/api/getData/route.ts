@@ -1,4 +1,3 @@
-import { getThumbnail } from "@/components/s3-actions";
 import { db } from "@/lib/db";
 
 export const dynamic = 'force-dynamic';
