@@ -2,6 +2,7 @@ import Comment from '@/components/Comment'
 import DocumentView from '@/components/DocumentView'
 import HorizontalHeader from '@/components/HorizontalHeader'
 import SearchResult from '@/components/SearchResult'
+import TagView from '@/components/TagView';
 import Tag from '@/components/Tags'
 import { Comme } from 'next/font/google'
 import React from 'react'
@@ -42,6 +43,7 @@ export default function Home() {
           { title: 'Comment 2', content: 'This is another comment' },
         ]}
       />
+      <TagView tagName='Sorting'/>
     </>
   )
 }

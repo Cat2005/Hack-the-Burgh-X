@@ -55,7 +55,10 @@ export default function DocumentView({
       })
   }, [])
   return (
-    <Dialog aria-label="Edit Profile" defaultOpen>
+    <Dialog aria-label="Edit Profile" asChild>
+      <DialogTrigger asChild>
+        <Button variant="outline">Edit Profile</Button>
+      </DialogTrigger>
       <DialogContent className="sm:max-w-[80vw] max-[50vw]: grid gap-4 grid-cols-3 h-[90vh] bg-gray-100">
         <div className="col-span-2 sm:col-span-2 rounded-lg">
           <embed
