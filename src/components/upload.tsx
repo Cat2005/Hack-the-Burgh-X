@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { uploadToS3 } from './s3-actions'
 
 
 
@@ -56,7 +57,9 @@ export function Main({ children }: Props) {
 
   function upload() {
     const file = acceptedFiles[0]
-    alert('Uploading ' + file.name)
+    const formData = new FormData()
+    formData.append('file', file)
+    uploadToS3(formData)
     // TODO: Generate id 
     // TODO: Add to DB
     // TODO: Upload to S3
@@ -68,18 +71,21 @@ export function Main({ children }: Props) {
       isDragAccept && 'border-8 border-green-500',
       isDragReject && 'border-8 border-red-500',
     )} {...getRootProps()}>
-      <Dialog open={acceptedFiles.length > 0}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Upload File Confirmation</DialogTitle>
-            <DialogDescription>
-              Would you like to upload {acceptedFiles[0].name}?
-            </DialogDescription>
-            <Button onClick={upload}>Upload</Button>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
 
+      {acceptedFiles.length > 0 && (
+
+        <Dialog open={acceptedFiles.length > 0}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Upload File Confirmation</DialogTitle>
+              <DialogDescription>
+                Would you like to upload {acceptedFiles[0].name}?
+              </DialogDescription>
+              <Button onClick={upload}>Upload</Button>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+      )}
       {children}
     </div>
   )
