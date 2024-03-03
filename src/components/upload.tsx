@@ -45,7 +45,7 @@ const acceptStyle = {
 const rejectStyle = {
   borderColor: '#ff1744'
 };
-export function Main({ children }: Props) {
+export function DropZone({ children }: Props) {
   const {
     getRootProps,
     isDragAccept,
@@ -57,17 +57,18 @@ export function Main({ children }: Props) {
   function upload() {
     const file = acceptedFiles[0]
     alert('Uploading ' + file.name)
-    // TODO: Generate id 
+    // TODO: Generate id
     // TODO: Add to DB
     // TODO: Upload to S3
   }
 
 
   return (
-    <div className={cn('h-screen w-full transition-colors dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center',
+    <div className={cn('transition-colors h-full',
       isDragAccept && 'border-8 border-green-500',
       isDragReject && 'border-8 border-red-500',
     )} {...getRootProps()}>
+      {acceptedFiles.length > 0 && (
       <Dialog open={acceptedFiles.length > 0}>
         <DialogContent>
           <DialogHeader>
@@ -79,6 +80,7 @@ export function Main({ children }: Props) {
           </DialogHeader>
         </DialogContent>
       </Dialog>
+      )}
 
       {children}
     </div>

@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Main from '@/components/Main'
+import Background from '@/components/Background'
 import HorizontalHeader from '@/components/HorizontalHeader'
+import { DropZone } from '@/components/upload';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,10 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Main>
+        <Background>
           <HorizontalHeader documentCount={32} />
-          {children}
-        </Main>
+          <DropZone>
+            {children}
+          </DropZone>
+        </Background>
       </body>
     </html>
   )
