@@ -46,6 +46,7 @@ const rejectStyle = {
 };
 export function DropZone({ children }: Props) {
   const [openModal, setOpenModal] = React.useState(false);
+  const [tags, setTags] = React.useState<string[]>([]);
   const { getRootProps, isDragAccept, isDragReject, acceptedFiles } =
     useDropzone({
       accept: { "application/pdf": [] },
@@ -60,7 +61,7 @@ export function DropZone({ children }: Props) {
     setOpenModal(false);
     const formData = new FormData();
     formData.append("file", file);
-    const img = await uploadToS3(formData); // base64
+    const img = await uploadToS3(formData, tags);
     // append img to div with id img
     const imgElement = document.createElement("img");
     imgElement.src = "data:image/png;base64," + img;
@@ -89,6 +90,11 @@ export function DropZone({ children }: Props) {
               <DialogTitle>Upload File Confirmation</DialogTitle>
               <DialogDescription>
                 Would you like to upload {acceptedFiles[0].name}?
+
+                <input type="text" onChange={(e) => {
+                  const tags = e.target.value.split(",")
+                  setTags(tags)
+                }} />
               </DialogDescription>
               <Button onClick={upload}>Upload</Button>
             </DialogHeader>

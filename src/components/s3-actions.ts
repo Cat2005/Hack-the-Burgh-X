@@ -13,7 +13,7 @@ const s3 = new S3Client({
 });
 
 const bucket = "htb-x-s3"
-export async function uploadToS3(formData: FormData) {
+export async function uploadToS3(formData: FormData, tags: string[]) {
   const file = formData.get('file') as File
 
   const data = await pdf2img.convert(Buffer.from(await file.arrayBuffer()), {
@@ -34,18 +34,19 @@ export async function uploadToS3(formData: FormData) {
         filename: file.name,
         size: file.size,
         vector: vec,
+        tags: tags
       }
     })
 
     const pdf = await s3.send(new PutObjectCommand({
       Bucket: bucket,
-      Key: `${document.id}-${file.name}`,
+      Key: `${document.id}-file.pdf`,
       Body: Buffer.from(await file.arrayBuffer())
     }))
 
     const image = await s3.send(new PutObjectCommand({
       Bucket: bucket,
-      Key: `${document.id}-${file.name}.png`,
+      Key: `${document.id}-thumbnail.png`,
       // @ts-ignore
       Body: Buffer.from(data[0], 'base64'),
     }))
@@ -61,19 +62,19 @@ export async function uploadToS3(formData: FormData) {
   //
 }
 
-export async function getThumbnail(document: Document) {
+export async function getThumbnail(documentId: string) {
   const command = new GetObjectCommand({
     Bucket: bucket,
-    Key: `${document.id}-${document.filename}.png`
+    Key: `${documentId}-thumbnail.png`
   })
 
   return await getSignedUrl(s3, command, { expiresIn: 30 })
 }
 
-export async function getPdf(document: Document) {
+export async function getPdf(documentId: string) {
   const command = new GetObjectCommand({
     Bucket: bucket,
-    Key: `${document.id}-${document.filename}`
+    Key: `${documentId}-file.pdf`
   })
 
   return await getSignedUrl(s3, command, { expiresIn: 30 })

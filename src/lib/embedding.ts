@@ -2,6 +2,7 @@
 import OpenAI from "openai";
 import * as mathjs from "mathjs";
 import { db } from "./db";
+import { getThumbnail } from "@/components/s3-actions";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -38,7 +39,23 @@ export async function search(query: string, n: number = 3) {
     documentId: e.documentId,
     similarity: vectorSimilarity(queryEmbedding, e.vector),
   }));
-  return similarities
-    .sort((a, b) => b.similarity - a.similarity)
-    .slice(0, Math.min(similarities.length, n));
+  const topN = similarities
+    .sort((a, b) => a.similarity - b.similarity)
+    .slice(0, Math.min(similarities.length, n))
+
+
+  const resultsWithThumbnails = await Promise.all(
+    topN.map(async (r) => {
+      const thumbnail = await getThumbnail(r.documentId);
+      return {
+        ...r,
+        thumbnail,
+      };
+    })
+  );
+  return resultsWithThumbnails;
+
+
+
+
 }
