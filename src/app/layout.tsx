@@ -1,12 +1,10 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
 import Background from '@/components/Background'
 import HorizontalHeader from '@/components/HorizontalHeader'
+import { GeistSans } from 'geist/font/sans';
 
 import { Toaster } from '@/components/ui/sonner'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'HTBX',
@@ -20,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={GeistSans.className}>
         <Background>
           <HorizontalHeader documentCount={32} />
           {children}
