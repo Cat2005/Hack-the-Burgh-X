@@ -1,23 +1,15 @@
-import { MongoClient } from 'mongodb';
-import mongoose from 'mongoose';  
+import { db } from "@/lib/db";
 
 export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   // Connect to MongoDB
-  const uri = 'mongodb+srv://htb:ENu83UbGynqpQ9E@cluster0.uyx8ms0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
-  const client = new MongoClient(uri);
-
   try {
-    await client.connect();
-    const database = client.db('htb');
-    const collection = database.collection('File');
-
     // Insert a document
-    const document = { name: 'John Doe', age: 30 };
-    // const result = await collection.insertOne(document);
-    // console.log('Inserted document:', result.insertedId);
-  } finally {
+    const results = await db.document.findMany()
+    return new Response(JSON.stringify(results), { status: 200 });
+  } catch (e) {
     // Close the connection
-    await client.close();
+    return new Response(e.message, { status: 500 });
   }
 }
