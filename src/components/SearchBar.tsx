@@ -24,7 +24,7 @@ export default function SearchBar() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="font-medium border-[1.5px] flex rounded-full px-3 py-2 bg-white items-center gap-2 focus-within:border-[1.5px] focus-within:border-black w-[30rem] absolute top-[15%] left-1/2 -translate-x-1/2 shadow-sm"
+      className="z-10 font-medium border-[1.5px] flex rounded-full px-3 py-2 bg-white items-center gap-2 focus-within:border-[1.5px] focus-within:border-black w-[30rem] absolute top-[15%] left-1/2 -translate-x-1/2 shadow-sm"
     >
       <SearchIcon className="w-5 h-5 text-gray-300" />
       <input

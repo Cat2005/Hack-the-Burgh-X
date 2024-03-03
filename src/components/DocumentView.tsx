@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -7,11 +7,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import Comment from './Comment'
-import Comments from './Comment'
-import Tags from './Tags'
-import CommentInput from './CommentInput'
+} from "@/components/ui/dialog";
+import Comment from "./Comment";
+import Comments from "./Comment";
+import Tags from "./Tags";
+import CommentInput from "./CommentInput";
 
 export default function DocumentView({
   documentName,
@@ -19,10 +19,10 @@ export default function DocumentView({
   documentUrl,
   comments,
 }: {
-  documentName: string
-  documentTags: string[]
-  documentUrl: string
-  comments: { title: string; content: string }[]
+  documentName: string;
+  documentTags: string[];
+  documentUrl: string;
+  comments: { title: string; content: string }[];
 }) {
   return (
     <Dialog aria-label="Edit Profile" asChild>
@@ -32,7 +32,7 @@ export default function DocumentView({
       <DialogContent className="sm:max-w-[80vw] max-[50vw]: grid gap-4 grid-cols-3 h-[90vh] bg-gray-100">
         <div className="col-span-2 sm:col-span-2 rounded-lg">
           <embed
-            src={documentUrl + '#toolbar=0&navpanes=0&scrollbar=0'}
+            src={documentUrl + "#toolbar=0&navpanes=0&scrollbar=0"}
             width="100%"
             height="100%"
             className="rounded-lg"
@@ -49,5 +49,5 @@ export default function DocumentView({
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
