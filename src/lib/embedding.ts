@@ -23,7 +23,7 @@ function vectorSimilarity(v1: number[], v2: number[]) {
 
 export async function createEmbeddingVector(note: Note) {
   const res = await openai.embeddings.create({
-    model: "text-embedding-ada-002",
+    model: "text-embedding-3-large",
     input: note.content,
   });
   const vector = res.data[0].embedding;

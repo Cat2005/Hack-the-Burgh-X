@@ -48,14 +48,22 @@ export function DropZone({ children }: Props) {
   const { getRootProps, isDragAccept, isDragReject, acceptedFiles } =
     useDropzone({ accept: { 'application/pdf': [] }, noClick: true })
 
-  function upload() {
+  async function upload() {
     const file = acceptedFiles[0]
     const formData = new FormData()
     formData.append('file', file)
-    uploadToS3(formData)
-    // TODO: Generate id 
-    // TODO: Add to DB
-    // TODO: Upload to S3
+    const img = await uploadToS3(formData) // base64
+    // append img to div with id img
+    const imgElement = document.createElement('img')
+    imgElement.src = 'data:image/png;base64,' + img
+    imgElement.width = 200
+    imgElement.height = 200
+    const imgDiv = document.getElementById('img')
+    imgDiv.appendChild(imgElement)
+
+
+    console.log(img)
+    acceptedFiles.pop()
   }
 
   return (
@@ -96,6 +104,9 @@ export function DropZone({ children }: Props) {
           </DialogContent>
         </Dialog>
       )}
+      <div id="img">
+        test
+      </div>
       {children}
     </div>
   )
