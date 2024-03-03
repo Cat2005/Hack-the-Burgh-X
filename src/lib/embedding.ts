@@ -2,7 +2,7 @@
 import OpenAI from "openai";
 import * as mathjs from "mathjs";
 import { db } from "./db";
-import { getThumbnail } from "@/components/s3-actions";
+import { getPdf, getThumbnail } from "@/components/s3-actions";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -32,11 +32,15 @@ export async function search(query: string, n: number = 3) {
   const results = await db.document.findMany();
   const embeddings = results.map((r) => ({
     documentId: r.id,
+    name: r.filename,
+    tags: r.tags,
     vector: r.vector,
   }));
   const queryEmbedding = await createEmbeddingVector({ content: query });
   const similarities = embeddings.map((e) => ({
     documentId: e.documentId,
+    name: e.name,
+    tags: e.tags,
     similarity: vectorSimilarity(queryEmbedding, e.vector),
   }));
   const topN = similarities
@@ -50,6 +54,7 @@ export async function search(query: string, n: number = 3) {
       return {
         ...r,
         thumbnail,
+        url: await getPdf(r.documentId),
       };
     })
   );

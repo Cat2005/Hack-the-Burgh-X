@@ -25,7 +25,7 @@ export default function DocumentView({
   comments: { title: string; content: string }[];
 }) {
   return (
-    <Dialog aria-label="Edit Profile" asChild>
+    <Dialog aria-label="Edit Profile" open={true}>
       <DialogTrigger asChild>
         <Button variant="outline">Edit Profile</Button>
       </DialogTrigger>
