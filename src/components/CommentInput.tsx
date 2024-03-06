@@ -11,11 +11,17 @@ export default function CommentInput({ documentId }: { documentId: string }) {
   const handleSubmit = () => {
     createComment(content, documentId);
     toast.success("Comment submitted!");
+    setContent("");
   };
 
   return (
     <div className="grid w-full gap-2">
-      <Textarea placeholder="Type your message here." className="resize-none" value={content} onChange={(e) => setContent(e.target.value)} />
+      <Textarea
+        placeholder="Type your message here."
+        className="resize-none"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+      />
       <Button onClick={handleSubmit}>Send comment</Button>
     </div>
   );

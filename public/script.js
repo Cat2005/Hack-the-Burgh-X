@@ -96,7 +96,7 @@ async function main() {
     .data(nodes)
     .join("circle")
     .attr("r", (d) => {
-      return Math.max(Math.min(100 / nodes.length, 500), 5);
+      return Math.max(Math.min(150 / nodes.length, 500), 5);
     })
     .on("mouseover", (event, d) => {});
 

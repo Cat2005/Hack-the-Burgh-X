@@ -17,6 +17,7 @@ import Comments from "./Comment";
 
 export default function DocumentView(results: {
   results: SearchResults["results"][number];
+  close: () => void;
 }) {
   const embedRef = useRef<HTMLEmbedElement>(null);
 
@@ -62,7 +63,15 @@ export default function DocumentView(results: {
   }
 
   return (
-    <Dialog aria-label="Edit Profile" defaultOpen>
+    <Dialog
+      aria-label="Edit Profile"
+      onOpenChange={(e) => {
+        if (!e) {
+          results.close();
+        }
+      }}
+      defaultOpen
+    >
       <DialogContent className="sm:max-w-[80vw] max-[50vw]: grid gap-4 grid-cols-3 h-[90vh] bg-gray-100">
         <div className="col-span-2 sm:col-span-2 rounded-lg">
           <embed

@@ -8,7 +8,7 @@ import { FormEvent } from "react";
 
 export default function SearchBar() {
   const ref = useRef<HTMLInputElement>(null);
-  const [results, setResults] = useSearch();
+  const [results, setResults, loading, setLoading] = useSearch();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

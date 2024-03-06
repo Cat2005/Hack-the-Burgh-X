@@ -9,7 +9,7 @@ export default function Graph() {
   return (
     <>
       <div
-        className="absolute w-full h-[80%] bottom-0 left-0"
+        className="absolute w-full h-[80%] bottom-0 left-1/2 -translate-x-1/2"
         id="container"
       ></div>
       <Script src="https://cdn.jsdelivr.net/npm/d3@7"></Script>

@@ -6,8 +6,8 @@ import type { SearchResults } from "@/lib/embedding";
 type SearchContextType = [
   results: SearchResults | null,
   setResults: (results: SearchResults) => void,
-  loading: boolean,
-  setLoading: (loading: boolean) => void
+  loading: number | null,
+  setLoading: (loading: number) => void
 ];
 
 const searchContext = createContext<SearchContextType | undefined>(undefined);
@@ -24,7 +24,7 @@ const useSearch = () => {
 
 function SearchProvider({ children }: { children: React.ReactNode }) {
   const [results, setResults] = useState<SearchResults | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<number | null>(null);
 
   return (
     <searchContext.Provider value={[results, setResults, loading, setLoading]}>

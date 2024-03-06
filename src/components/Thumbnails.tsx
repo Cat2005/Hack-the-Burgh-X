@@ -5,6 +5,7 @@ import { AspectRatio } from "./ui/aspect-ratio";
 import Image from "next/image";
 import DocumentView from "./DocumentView";
 import { search } from "@/lib/embedding";
+import { motion } from "framer-motion";
 
 export function useInterval(callback: () => void, delay: number) {
   const savedCallback = useRef<() => void>(() => {
@@ -46,12 +47,25 @@ export const Thumbnails = (props: {}) => {
                 alt={"TES"}
                 className="rounded-md object-cover w-[10rem] h-[10rem] border bg-white"
               />
-              <p className="overflow-ellipsis">{r.name}</p>
+              <p className="text-sm overflow-ellipsis truncate">{r.name}</p>
             </button>
           ))}
       </div>
+
+      {results !== null && (
+        <motion.div
+          transition={{ duration: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="w-[40rem] h-[10rem] bg-neutral-300 blur-2xl rounded-3xl top-[25%] left-1/2 absolute -translate-x-1/2"
+        ></motion.div>
+      )}
+
       {selectedDoc !== null && results !== null && (
-        <DocumentView results={results?.results[selectedDoc]}></DocumentView>
+        <DocumentView
+          close={() => setSelectedDoc(null)}
+          results={results?.results[selectedDoc]}
+        ></DocumentView>
       )}
     </div>
   );
